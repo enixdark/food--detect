@@ -11,7 +11,11 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.save
         RestClient.post "http://localhost:5000/path", 
-          {'file' => "#{ImageUploader.class_variable_get(:@@static_store)}/#{image_params['file'].original_filename}"}.to_json, {content_type: :json, accept: :json}
+          {
+            'file' => "#{ImageUploader.class_variable_get(:@@static_store)}/#{image_params['file'].original_filename}",
+            'client_id' => params.require(:client_id)  
+          }.to_json, 
+            {content_type: :json, accept: :json}
         format.js
       end
     end

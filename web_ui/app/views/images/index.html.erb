@@ -8,6 +8,8 @@
     <%= form_for @image, html: { multipart: true, id: "upload_form" }, :remote => true, :authenticity_token => true do |f| %>
       <label class="file-button no-outline" id="upload_button">
         <%= f.file_field :file, class: "hidden", accept: 'image/png,image/svg,image/jpeg,image/jpg,image/gif' %>
+        <input name="client_id" id="client_id" type="hidden" value="">
+
         <%= image_tag "upload-o.svg", class: "dashboard-icon" %>
         <span class="button-text">Upload your image</span>
       </label>
@@ -26,6 +28,11 @@
 <script type="text/javascript">
   window.onload = function () {
    jQuery(document).ready(function($) {
+    socket.on('connect', function (data) {
+      console.log('connected!');
+      $('#client_id').val(socket.id);
+    });
+   
     document.getElementById("upload_button").style.cursor = "pointer";
     document.getElementById("image_file").onchange = function() {
       //document.getElementById("upload_form").submit();

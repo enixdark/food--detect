@@ -26,14 +26,14 @@ def predict(image_path):
         predictions = sess.run(softmax_tensor, \
                                {'DecodeJpeg/contents:0': image_data})
 
-        print(predictions)
+        # print(predictions)
         # Sort to show labels of first prediction in order of confidence
         top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
 
         for node_id in top_k:
             human_string = label_lines[node_id]
             score = predictions[0][node_id]
-            print('%s (score = %.5f)' % (human_string, score))
+            # print('%s (score = %.5f)' % (human_string, score))
             result_image[human_string] = score
 
     return result_image
