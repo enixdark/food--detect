@@ -1,0 +1,81 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "font-awesome";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// f26b43
+
+// 445561
+
+.no-outline:active,
+.no-outline:focus {
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.table-panel {
+  display: table;
+
+  .table-child {
+    display: table-cell;
+  }
+
+  .ver-mid {
+    vertical-align: middle;
+  }
+
+  .ver-top {
+    vertical-align: top;
+  }
+
+  .ver-bot {
+    vertical-align: bottom;
+  }
+}
+
+.main-container {
+  font-family: Raleway;
+}
+
+.block-upload-form {
+  height: 100vh;
+  width: 100%;
+}
+
+#upload_form {
+  padding-top: calc(50vh - 40px);
+  text-align: center;
+
+  .file-label {
+    margin-bottom: 0px;
+
+    .file-button {
+      padding: 15px 30px;
+      border: 1px solid #f26b43;
+      color: #f26b43;
+      background-color: transparent;
+    }
+
+    .button-text {
+      font-size: 20px; 
+      line-height: 40px;
+      font-weight: 200;
+      margin-left: 15px;
+      display: inline-block;
+      float: left;
+      text-transform: uppercase;
+    }
+
+    .dashboard-icon {
+      width: 40px;
+      float: left;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+  }
+}

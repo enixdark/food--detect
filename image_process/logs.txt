@@ -1,0 +1,42 @@
+Results : 
+
+1 : testing/pho/images.jpg
+pho (score = 0.99179)
+buncha (score = 0.00746)
+banh da cua (score = 0.00075)
+2 : testing/pho/100527MBTpho7.jpg
+banh da cua (score = 0.56597)
+pho (score = 0.34791)
+buncha (score = 0.08612)
+3 : testing/pho/1355932_YM-elikEkWPthOjqOpGsRcO7j4HN7oB1lhVxP2OCszk.jpg
+pho (score = 0.52152)
+banh da cua (score = 0.47128)
+buncha (score = 0.00720)
+4 : testing/pho/maxresdefault.jpg
+pho (score = 0.87768)
+banh da cua (score = 0.10097)
+buncha (score = 0.02135)
+5 : testing/pho/20170517-145513-largejpg.jpg
+banh da cua (score = 0.82219)
+pho (score = 0.15895)
+buncha (score = 0.01886)
+6 : testing/banh-da-cua/images.jpg
+pho (score = 0.35310)
+buncha (score = 0.32671)
+banh da cua (score = 0.32019)
+7 : testing/banh-da-cua/banhda.jpg
+banh da cua (score = 0.94858)
+buncha (score = 0.04869)
+pho (score = 0.00273)
+8 : testing/buncha/test.jpg
+buncha (score = 0.90580)
+pho (score = 0.08322)
+banh da cua (score = 0.01098)
+9 : testing/buncha/bun-cha-hanoi-2.jpg
+banh da cua (score = 0.67154)
+buncha (score = 0.32836)
+pho (score = 0.00011)
+10 : testing/buncha/bun-cha-hanoi.jpg
+banh da cua (score = 0.87412)
+buncha (score = 0.12258)
+pho (score = 0.00330)

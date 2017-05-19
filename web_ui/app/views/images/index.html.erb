@@ -1,0 +1,19 @@
+<div class="main-container upload-image">
+  <div class="block-upload-form">
+    <%= form_for @image, html: { multipart: true, id: "upload_form" }, :remote => true, :authenticity_token => true do |f| %>
+      <label class="file-label">
+        <button type="button" class="file-button no-outline" >
+          <%= f.file_field :name, class: "hidden" %>
+          <%= image_tag "upload-o.svg", class: "dashboard-icon" %>
+          <span class="button-text">Upload your image</span>
+        </button>
+      </label>
+      <%= f.submit class: "hidden" %>
+    <% end %>
+  </div>
+  <div class="image-information">
+    <div class="container">
+      
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+version: '3'
+services:
+  web_ui:
+    build: ./web_ui
+    command: rails s
+    # environment:
+  image_process:
+    build: ./image_process
+    command: python app.py 
+    # environment:
+    # ports:
+  image_worker:
+    build: ./image_worker
+    command: celery -A worker worker --loglevel=info
+  socket_server:
+    build: ./socket_server
+    command: babel-node server.js
+    environment:
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
+      - SOCKET_PORT=3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - rabbitmq
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "8080:15672"
+      - "5672:5672"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  
+  

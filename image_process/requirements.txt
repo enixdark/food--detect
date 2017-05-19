@@ -1,0 +1,5 @@
+Flask-RESTful==0.3.5
+Flask==0.12.2
+tensorflow==0.12.2
+scikit_learn==0.18.1
+scipy==0.19.1
