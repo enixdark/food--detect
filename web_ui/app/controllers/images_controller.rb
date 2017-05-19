@@ -1,18 +1,18 @@
+require 'rest-client'
+
 class ImagesController < ApplicationController
+  
   def index
     @image = Image.new
   end
 
   def create
     @image = Image.new(image_params)
-
-    if @image.save 
-      respond_to do |format|
-        format.js { render 'create' }
-      end
-    else
-      respond_to do |format|
-        format.js { render 'create' }
+    respond_to do |format|
+      if @image.save
+        RestClient.post "http://localhost:5000/path", 
+          {'file' => "#{ImageUploader.class_variable_get(:@@static_store)}/#{image_params['file'].original_filename}"}.to_json, {content_type: :json, accept: :json}
+        format.js
       end
     end
   end

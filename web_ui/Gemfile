@@ -19,8 +19,11 @@ gem 'bootstrap-sass', '~> 3.3.7'
 gem 'mysql2'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'remotipart', '~> 1.2'
+gem 'jquery-turbolinks'
+gem 'rest-client'
 
-
+gem 'jquery-ui-rails'
 group :development, :test do
   gem 'byebug', platform: :mri
 end
