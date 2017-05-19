@@ -4,10 +4,6 @@
 @import "font-awesome";
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-// f26b43
-
-// 445561
-
 .no-outline:active,
 .no-outline:focus {
   outline: none !important;
@@ -47,15 +43,11 @@
   padding-top: calc(50vh - 40px);
   text-align: center;
 
-  .file-label {
+  .file-button {
     margin-bottom: 0px;
-
-    .file-button {
-      padding: 15px 30px;
-      border: 1px solid #f26b43;
-      color: #f26b43;
-      background-color: transparent;
-    }
+    padding: 15px 30px;
+    border: 1px solid #f26b43;
+    color: #f26b43;
 
     .button-text {
       font-size: 20px; 

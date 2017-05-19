@@ -4,6 +4,21 @@ class ImagesController < ApplicationController
   end
 
   def create
-    
+    @image = Image.new(image_params)
+
+    if @image.save 
+      respond_to do |format|
+        format.js { render 'create' }
+      end
+    else
+      respond_to do |format|
+        format.js { render 'create' }
+      end
+    end
   end
+
+  private
+    def image_params
+      params.require(:image).permit(:file)
+    end
 end

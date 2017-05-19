@@ -3,6 +3,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
     create_table :images do |t|
       t.string  :name
       t.string  :size
+      t.string  :file
       t.text    :suggest 
       t.string  :path
 

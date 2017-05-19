@@ -1,19 +1,25 @@
 <div class="main-container upload-image">
   <div class="block-upload-form">
     <%= form_for @image, html: { multipart: true, id: "upload_form" }, :remote => true, :authenticity_token => true do |f| %>
-      <label class="file-label">
-        <button type="button" class="file-button no-outline" >
-          <%= f.file_field :name, class: "hidden" %>
-          <%= image_tag "upload-o.svg", class: "dashboard-icon" %>
-          <span class="button-text">Upload your image</span>
-        </button>
+      <label class="file-button no-outline" id="upload_button">
+        <%= f.file_field :file, class: "hidden", accept: 'image/png,image/svg,image/jpeg,image/jpg,image/gif' %>
+        <%= image_tag "upload-o.svg", class: "dashboard-icon" %>
+        <span class="button-text">Upload your image</span>
       </label>
       <%= f.submit class: "hidden" %>
     <% end %>
   </div>
   <div class="image-information">
-    <div class="container">
+    <div class="container" id="image_information">
       
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  document.getElementById("upload_button").style.cursor = "pointer";
+  document.getElementById("image_file").onchange = function() {
+    document.getElementById("upload_form").submit();
+    document.getElementById("main_body").style.cursor = "progress";
+  };
+</script>

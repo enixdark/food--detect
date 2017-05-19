@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20170519120703) do
   create_table "images", force: :cascade do |t|
     t.string   "name"
     t.string   "size"
+    t.string   "file"
     t.text     "suggest"
     t.string   "path"
     t.datetime "created_at", null: false
