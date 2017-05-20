@@ -1,62 +1,99 @@
 version: '3'
 services:
   web_ui:
+    container_name: web_ui
     build: ./web_ui
-    command: rails s
-    # environment:
-  image_process:
+    command: ./bin/run
+    environment:
+      - IMAGE_SERVICE_URI=http://image_service:5000/path
+      - SOCKET_SERVER_URI=socket_server
+      - RAILS_MAX_THREADS=1
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    links:
+      - image_service
+      - socket_server
+    depends_on:
+      - image_service
+      - socket_server
+  image_service:
+    container_name: image_service
     build: ./image_process
     command: python app.py 
-    # environment:
-    # ports:
+    environment:
+      - DEBUG=True
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
+      - BROKER_NAME="tasks"
+      - BROKER_URI=pyamqp://guest:guest@rabbitmq:5672//
+    ports:
+      - "5000:5000"
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
   image_worker:
-    build: ./image_worker
+    container_name: image_worker
+    privileged: true
+    build: ./image_process
     command: celery -A worker worker --loglevel=info
+    environment:
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
+      - BROKER_NAME="tasks"
+      - BROKER_URI=pyamqp://guest:guest@rabbitmq:5672//
+    volumes:
+      - /tmp:/tmp
+    links:
+      - rabbitmq
+    depends_on:
+      - rabbitmq
   socket_server:
     build: ./socket_server
     command: babel-node server.js
     environment:
       - RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
-      - SOCKET_PORT=3000
+      - SOCKET_PORT=1333
     ports:
-      - "3000:3000"
+      - "1333:1333"
+    links:
+      - rabbitmq
     depends_on:
       - rabbitmq
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+    # deploy:
+    #   replicas: 1
+    #   update_config:
+    #     parallelism: 1
+    #     delay: 10s
+    #   restart_policy:
+    #     condition: on-failure
   rabbitmq:
     container_name: rabbitmq
-    image: rabbitmq:3-management
+    image: rabbitmq #:3-management
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "8080:15672"
+      # - "8080:15672"
       - "5672:5672"
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
-  mongo:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - /data:/data
-    ports:
-      - "27017:27017"
-      - "28017:28017"
-    deploy:
-      replicas: 1
-      update_config:
-        parallelism: 1
-        delay: 10s
-      restart_policy:
-        condition: on-failure
+    # deploy:
+    #   replicas: 1
+    #   update_config:
+    #     parallelism: 1
+    #     delay: 10s
+    #   restart_policy:
+    #     condition: on-failure
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   volumes:
+  #     - /data:/data
+  #   ports:
+  #     - "27017:27017"
+  #     - "28017:28017"
+  #   deploy:
+  #     replicas: 1
+  #     update_config:
+  #       parallelism: 1
+  #       delay: 10s
+  #     restart_policy:
+  #       condition: on-failure

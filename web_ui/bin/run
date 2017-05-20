@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ "$SOCKET_SERVER_URI" = "" ]; then
+   export SOCKET_SERVER_URI=0.0.0.0
+else
+   export SOCKET_SERVER_URI=`getent hosts socket_server | cut -d' ' -f1`
+fi
+sed -i s/{{SOCKET_SERVER_URI}}/${SOCKET_SERVER_URI}/g  /app/app/assets/javascripts/images.js
+#cat /app/app/assets/javascripts/images.js
+puma 

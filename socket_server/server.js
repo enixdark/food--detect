@@ -1,20 +1,25 @@
-let server = require('http').createServer()
+let http = require('http')
+let server = http.createServer()
 let io = require('socket.io')(server)
 let amqp = require('amqplib/callback_api')
 let config = require('./config')
-
-let AMQP_CONNECT = false;
+let R = require('ramda')
+let Rest_client = require('node-rest-client').Client
+let rest = new Rest_client();
+let request = require('request')
 
 let clients = {}
-
-console.log(config.default)
+let URI = process.env.GOOGLE_SERIVCE_URI || 'http://0.0.0.0:6000/search'
+let options = {
+  host: 'localhost:6000',
+  family: 4,
+  port: 6000,
+  path: '/search'
+}
 io.on('connection', (client) => {
   client.send(client.id)
   clients[client.id] = client
   console.log('connection')
-  client.on('disconnect', () => {
-
-  })
 })
 
 amqp.connect(config.default.RABBITMQ_URI, (err, conn) => {
@@ -26,16 +31,24 @@ amqp.connect(config.default.RABBITMQ_URI, (err, conn) => {
         console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", q.queue)
         ch.bindQueue(q.queue, ex, '')
         ch.consume(q.queue, function(msg) {
+
           console.log(" [x] %s", msg.content.toString())
-          let id = JSON.parse(msg.content.toString().replace(/\'/g,"\"").replace("u\"","\""))["id"]
-          clients[id].emit('answer', msg.content.toString())
+          let dt = JSON.parse(msg.content.toString().replace(/\'/g,"\"").replace("u\"","\""))
+          let id = dt['id']
+          let obj = R.filter((v,k) => typeof v == 'number', dt)
+          let data = Object.keys(obj).reduce(function(a, b){ return obj[a] > obj[b] ? a : b })
+          // clients[id].emit('answer', msg.content.toString())
+          request(`${URI}?query=${data}`,(error, response, body)  => {
+            if(err) return 
+            clients[id].emit('answer', JSON.stringify({'id' : id, context: body }))           
+          })
         }, {noAck: true})
       })
     })
   })
 
-server.listen(config.default.SOCKER_PORT, () => {
-  console.log(`server listen ${config.default.SERVER_PORT}`)
+server.listen(config.default.SOCKET_PORT, () => {
+  console.log(`server listen ${config.default.SOCKET_PORT}`)
 })
 
 
