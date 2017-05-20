@@ -2,7 +2,7 @@
 @import "bootstrap";
 
 @import "font-awesome";
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&amp;subset=vietnamese);
 
 .no-outline:active,
 .no-outline:focus {
@@ -31,31 +31,46 @@
 }
 
 .main-container {
-  font-family: Raleway;
+  font-family: "Open Sans Condensed";
 }
 
 .block-upload-form {
   height: 100vh;
   width: 100%;
+  transition: all 0.8s;  
+}
+
+.has-information {
+  .block-upload-form {
+    height: 115px;
+    margin-bottom: 20px;
+
+    #upload_form {
+      padding-top: 20px;
+    }
+  }
 }
 
 #upload_form {
   padding-top: calc(50vh - 40px);
   text-align: center;
+  transition: all 0.5s;  
 
   .file-button {
     margin-bottom: 0px;
     padding: 15px 30px;
     border: 1px solid #f26b43;
     color: #f26b43;
+    text-transform: all 0.8s;
 
     .button-text {
-      font-size: 20px; 
+      font-size: 25px; 
       line-height: 40px;
-      font-weight: 200;
+      font-weight: 300;
       margin-left: 15px;
       display: inline-block;
       float: left;
+      letter-spacing: 2px;
       text-transform: uppercase;
     }
 
@@ -68,6 +83,100 @@
       content: "";
       display: block;
       clear: both;
+    }
+  }
+}
+
+#image_information {
+  .food-information {
+    margin-bottom: 40px;
+
+    .food-content {
+      .food-name {
+        margin-top: 5px;
+        font-size: 26px;
+        font-weight: 300;
+        font-family: "Open Sans Condensed";
+        line-height: 35px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .food-link {
+        width: 100%;
+
+        .foot-normal-link {
+          float: left;
+          font-size: 20px;
+          line-height: 30px;
+          display: block;
+          color: #f26b43;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .food-external-link {
+          float: left;
+          display: block;
+
+          .icon-new-tab {
+            padding: 3px 5px 6px 5px;
+            margin-left: 15px; 
+
+            .external-link-icon {
+              height: 20px;
+            }
+          }
+        }
+
+        &:after {
+          content: "";
+          display: block;
+          clear: both;
+        }
+      }
+    }
+  }
+
+  .food-content {
+    margin-bottom: 40px;
+
+    p {
+      font-size: 18px;
+      line-height: 22px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .redirect-panel {
+    display: inline-block;
+    width: 100%;
+
+    .redirect-button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      line-height: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 0px 10px;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &.button-theme-gray {
+        color: #445561;
+        border: 1px solid #445561;
+      }
+
+      &.button-theme-orange {
+        color: #f26b43;
+        border: 1px solid #f26b43;
+      }
     }
   }
 }
