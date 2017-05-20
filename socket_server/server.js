@@ -4,18 +4,11 @@ let io = require('socket.io')(server)
 let amqp = require('amqplib/callback_api')
 let config = require('./config')
 let R = require('ramda')
-let Rest_client = require('node-rest-client').Client
-let rest = new Rest_client();
 let request = require('request')
 
 let clients = {}
 let URI = process.env.GOOGLE_SERIVCE_URI || 'http://0.0.0.0:6000/search'
-let options = {
-  host: 'localhost:6000',
-  family: 4,
-  port: 6000,
-  path: '/search'
-}
+
 io.on('connection', (client) => {
   client.send(client.id)
   clients[client.id] = client
