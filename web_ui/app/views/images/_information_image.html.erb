@@ -71,9 +71,9 @@
         <div class="row">
           <div class="col-md-10 col-md-offset-1 col-sm-12 col-offset-0">
             <div class="video-player-list js--videop-layer">
-              <% (1..7).each do |video_id| %>
+              <% @video_data.each do |video| %>
                 <div class="video-player">
-                  <iframe src="https://www.youtube.com/embed/kZ4N09dQzEw?rel=0&amp;showinfo=0&amp;autoplay=0" frameborder="0"></iframe>
+                  <iframe src="https://www.youtube.com/embed/<%= (video['id'])['videoId'] %>?rel=0&amp;showinfo=0&amp;autoplay=0&amp;enablejsapi=1" frameborder="0"></iframe>
                 </div>
               <% end %>
             </div>
@@ -83,9 +83,9 @@
 
       <div class="video-playlist">
         <div class="js--video-list">
-          <% (1..7).each do |video_id| %>
-            <div class="video-item no-outline" data-videoid="AKfMcByHXfQ" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit">
-              <%= image_tag "https://i.ytimg.com/vi/AKfMcByHXfQ/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
+          <% @video_data.each do |video| %>
+            <div class="video-item no-outline" title="<%= (video["snippet"])["title"] %>">
+              <%= image_tag "https://i.ytimg.com/vi/" + (video['id'])['videoId'] + "/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
             </div>
           <% end %>
         </div>
@@ -125,10 +125,35 @@
   $('.js--modal-close').click(function(event) {
     $('.modal-container').addClass('out');
     $('body').removeClass('modal-active');
+
+    var player, command, currentSlide;
+    currentSlide = $(".js--videop-layer").find(".slick-current");
+    player = currentSlide.find("iframe").get(0);
+    command = {
+      "event": "command",
+      "func": "pauseVideo"
+    };
+
+    if (player != undefined) {
+      player.contentWindow.postMessage(JSON.stringify(command), "*");
+    }
   });
 
   $('.js--scroll-top').click(function() {
     $('html, body').animate({ scrollTop: 0 }, 400);
   });
-</script>
 
+  $(".js--videop-layer").on("beforeChange", function(event, slick) {
+    var currentSlide, player, command;
+    currentSlide = $(slick.$slider).find(".slick-current");
+    player = currentSlide.find("iframe").get(0);
+    command = {
+      "event": "command",
+      "func": "pauseVideo"
+    };
+
+    if (player != undefined) {
+      player.contentWindow.postMessage(JSON.stringify(command), "*");
+    }
+  });
+</script>

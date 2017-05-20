@@ -22,8 +22,8 @@ class ImagesController < ApplicationController
   end
 
   def return_data
-    @data = params[:data]
-    
+    @video_data = JSON.parse ( (JSON.parse params[:video_data_params] )["context"] )
+
     respond_to do |format|
       format.js
     end

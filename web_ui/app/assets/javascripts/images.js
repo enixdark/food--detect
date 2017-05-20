@@ -4,13 +4,9 @@
 var socket = io.connect('0.0.0.0:1333');
 socket.on('answer', function(message){
   console.log(message);
-  debugger
   $.ajax({
     method: "POST",
     url: "/images/return_data",
-    data: { mes: message }
+    data: { video_data_params: message }
   })
-  .done(function( msg ) {
-    alert( "Data Saved: " + msg );
-  });
 });
