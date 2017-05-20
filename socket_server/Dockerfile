@@ -6,6 +6,6 @@ WORKDIR /app
 COPY . /app/
 RUN npm i -g babel-cli
 RUN npm install
-
-EXPOSE 3000
+# RUN npm install -g http-server
+EXPOSE 1333
 CMD [ "babel-node", "start" ]
