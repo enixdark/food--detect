@@ -95,8 +95,14 @@ services:
       - "6000:6000"
     environment:
       # - SERVER_HOST=
-      - DEBUG=True
-      - SERVER_PORT=6000
+      - DEBUG=False
+  detech_service:
+    container_name: detect_service
+    build: ./detect_service
+    ports:
+      - "10000:10000"
+    environtment:
+      - API_KEY=QwGbA9i9eZmshcmQpoc3Dlqys4Oyp1cjb02jsnqiEQS1V3F1l9
     # deploy:
     #   replicas: 1
     #   update_config:
