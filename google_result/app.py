@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 api = Api(app)
 
+
 class PathUrl(Resource):
     def get(self):
         query = request.args.get('query')
