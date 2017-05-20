@@ -154,6 +154,7 @@
   .redirect-panel {
     display: inline-block;
     width: 100%;
+    margin-bottom: 40px;
 
     .redirect-button {
       display: inline-block;
@@ -163,6 +164,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
       margin: 0px 10px;
+      background-color: transparent;
 
       &:hover {
         text-decoration: none;
