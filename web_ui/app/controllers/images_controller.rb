@@ -21,6 +21,14 @@ class ImagesController < ApplicationController
     end
   end
 
+  def return_data
+    @data = params[:data]
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     def image_params
       params.require(:image).permit(:file)
