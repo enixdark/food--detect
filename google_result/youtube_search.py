@@ -23,7 +23,7 @@ def youtube_search(query):
         part="id,snippet",
         maxResults=10
     ).execute()
-    # pprint(search_response.get("items", []))
+    # pprint.pprint(search_response.get("items", []))
     return search_response.get("items", [])
 
 if __name__ == "__main__":
