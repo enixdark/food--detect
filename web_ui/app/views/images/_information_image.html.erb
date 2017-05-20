@@ -21,10 +21,37 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at euismod nibh. Sed mollis scelerisque neque, nec vestibulum odio pellentesque ac. Nullam pellentesque consequat quam at convallis. Proin sed ex id massa blandit tincidunt. Sed et dignissim magna. Nam hendrerit elit mi, et tempor massa consequat a. Fusce efficitur ultricies sem vel venenatis</p>
   <p>Aliquam non aliquam mi. Fusce sodales, magna et commodo eleifend, orci lectus volutpat nibh, vitae pretium ante mauris et risus. Nunc blandit mi velit, nec sagittis massa rutrum ac. Sed non sagittis nisl. Duis commodo risus tristique sapien suscipit eleifend. Duis at vestibulum mauris. Suspendisse porta, lectus sagittis gravida aliquet, risus mauris varius nibh, mattis mattis orci erat eget velit. Aenean in justo ac ligula bibendum fringilla non et massa. Vivamus ac sollicitudin leo.</p>
   <p>Nam ultricies diam at enim commodo gravida. Nullam porta vitae nulla sed faucibus. Suspendisse malesuada a diam in ultricies. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer egestas nec nibh quis vehicula. Sed sit amet placerat diam, vitae tincidunt nisi. Ut neque metus, accumsan in nibh eget, ullamcorper scelerisque purus. Sed porta scelerisque nibh, ac placerat nulla volutpat a. Vivamus enim augue, gravida nec lacus eu, aliquam mattis dui. Cras eget ligula tempor, ultrices nibh sit amet, auctor mauris. Donec luctus nisi id hendrerit tristique. Cras vestibulum sapien nec mauris blandit consectetur. Quisque ullamcorper nec dolor quis vulputate. Morbi sodales quam nec ligula tincidunt mollis</p>
-  <p>Quisque eleifend ornare dui et viverra. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In hac habitasse platea dictumst. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent at velit et quam ultricies luctus. Mauris dignissim erat eget consectetur fermentum. Pellentesque eget tortor suscipit sem imperdiet vehicula et vel ipsum.</p>
-  <p>Sed efficitur eu massa at suscipit. Aenean tincidunt elit sit amet sem mattis lobortis. Donec nibh augue, consectetur nec risus ut, tempor vehicula velit. Donec rutrum magna libero, vitae posuere purus ultrices non. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean erat lorem, placerat a aliquet tincidunt, facilisis eu urna. Sed lacinia nunc eget nisl blandit sagittis. Nulla facilisi. Ut quis libero ac nulla tempor mattis porta ut felis. Vestibulum elementum, augue a auctor imperdiet, orci felis efficitur sapien, at sagittis ex urna et ex.</p>
-  <p>In et congue elit, nec sollicitudin eros. Nunc tincidunt condimentum risus, vitae vulputate magna dictum porttitor. Phasellus in enim ut nisl tincidunt viverra. Pellentesque augue dolor, cursus vel cursus id, fermentum et mi. Aliquam consequat enim sit amet arcu egestas convallis. Nulla at lacus ut augue ultricies molestie tempor at arcu. Aliquam dictum mauris non ipsum congue, sit amet pulvinar nibh mollis. Vestibulum placerat, lacus hendrerit pharetra commodo, est ex elementum magna, sed lobortis dolor elit dignissim ligula.</p>
 </div>
+
+<div class="media-panel">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="image-border">
+        <div class="image-modal js--show-modal" data-target="#video_modal">
+          <div class="background-child" style="background-image: url('https://i.ytimg.com/vi/VZ9MBYfu_0A/hqdefault.jpg');">
+            <div class="overlay">
+              <%= image_tag "play.svg", class: "overlay-icon media-play-icon" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="medial-header">Video</h3>
+    </div>
+    <div class="col-sm-6">
+      <div class="image-border">
+        <div class="image-modal js--show-modal" data-target="#">
+          <div class="background-child" style="background-image: url(<%= asset_path 'map.jpg' %>);">
+            <div class="overlay">
+              <%= image_tag "search.svg", class: "overlay-icon media-search-icon" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h3 class="medial-header">Map</h3>
+    </div>
+  </div>
+</div>
+
 <div class="redirect-panel text-center">
   <button type="button" class="js--scroll-top no-outline redirect-button button-theme-gray">
     Upload other image
@@ -33,3 +60,71 @@
     View details
   </a>
 </div>
+
+<div class="modal-container" id="video_modal">
+  <div class="modal-background">
+    <div class="modal-close text-right js--modal-close">
+      <%= image_tag "close.svg", class: "modal-close-icon" %>
+    </div>
+    <div class="modal">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1 col-sm-12 col-offset-0">
+            <div class="video-player-list js--videop-layer">
+              <% (1..7).each do |video_id| %>
+                <div class="video-player">
+                  <iframe src="https://www.youtube.com/embed/kZ4N09dQzEw?rel=0&amp;showinfo=0&amp;autoplay=0" frameborder="0"></iframe>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-playlist">
+        <div class="js--video-list">
+          <% (1..7).each do |video_id| %>
+            <div class="video-item no-outline" data-videoid="AKfMcByHXfQ" title="Lorem ipsum dolor sit amet, consectetur adipiscing elit">
+              <%= image_tag "https://i.ytimg.com/vi/AKfMcByHXfQ/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.js--show-modal').click(function() {
+    var target_modal = $(this).data('target');
+
+    $(target_modal).removeClass('out').addClass('in');
+    $('body').addClass('modal-active');
+  });
+
+  $('.js--videop-layer').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    fade: true,
+    asNavFor: '.js--video-list'
+  });
+
+  $('.js--video-list').slick({
+    prevArrow:'<div class="slick-prev slick-control"><%= image_tag "left.svg", class: "slick-control-icon" %></div>',
+    nextArrow:'<div class="slick-next slick-control"><%= image_tag "right.svg", class: "slick-control-icon" %></div>',
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    asNavFor: '.js--videop-layer',
+    dots: false,
+    centerMode: false,
+    infinite: false,
+    focusOnSelect: true
+  });
+
+  $('.js--modal-close').click(function(event) {
+    $('.modal-container').addClass('out');
+    $('body').removeClass('modal-active');
+  });
+</script>
+

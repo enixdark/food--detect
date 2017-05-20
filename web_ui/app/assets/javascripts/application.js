@@ -7,4 +7,3 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require socket.io
-

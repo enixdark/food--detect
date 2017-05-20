@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
-from google_result.youtube_search import youtube_search
+from youtube_search import youtube_search
 
 app = Flask(__name__)
 api = Api(app)
