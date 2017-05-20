@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import pprint
 from oauth2client.tools import argparser
 from googleapiclient.discovery import build
 
@@ -22,7 +23,7 @@ def youtube_search(query):
         part="id,snippet",
         maxResults=10
     ).execute()
-    print(search_response.get("items", []))
+    # pprint(search_response.get("items", []))
     return search_response.get("items", [])
 
 if __name__ == "__main__":
