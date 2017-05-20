@@ -1,9 +1,4 @@
 <div class="main-container upload-image">
-  <% if remotipart_submitted? %>
-    alert('submitted via remotipart')
-  <% else %>
-    alert('submitted via native jquery-ujs')
-  <% end %>
   <div class="block-upload-form">
     <%= form_for @image, html: { multipart: true, id: "upload_form" }, :remote => true, :authenticity_token => true do |f| %>
       <label class="file-button no-outline" id="upload_button">
@@ -27,31 +22,17 @@
 
 <script type="text/javascript">
   window.onload = function () {
-   jQuery(document).ready(function($) {
-    socket.on('connect', function (data) {
-      console.log('connected!');
-      $('#client_id').val(socket.id);
+    jQuery(document).ready(function($) {
+      socket.on('connect', function (data) {
+        console.log('connected!');
+        $('#client_id').val(socket.id);
+      });
+
+      document.getElementById("upload_button").style.cursor = "pointer";
+      document.getElementById("image_file").onchange = function() {
+        document.getElementById("main_body").style.cursor = "progress";
+        $('#button-submit').click()
+      };
     });
-   
-    document.getElementById("upload_button").style.cursor = "pointer";
-    document.getElementById("image_file").onchange = function() {
-      //document.getElementById("upload_form").submit();
-      document.getElementById("main_body").style.cursor = "progress";
-      $('#button-submit').click()
-      <%#var filename = $("#image_file").val();
-      $.ajax({
-            type: "POST",
-            url: "/images",
-            enctype: 'multipart/form-data',
-            data: {
-                file: filename
-            },
-            success: function () {
-                alert("Data Uploaded: ");
-            }
-      });%>
-    };
-  });
   };
- 
 </script>

@@ -45,5 +45,18 @@ services:
         delay: 10s
       restart_policy:
         condition: on-failure
-  
-  
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - /data:/data
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
