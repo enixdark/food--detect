@@ -17,4 +17,4 @@ api.add_resource(PathUrl, '/search', endpoint='search')
 if __name__ == "__main__":
     app.run(host=os.getenv('SERVER_HOST') or '0.0.0.0', 
             debug=os.getenv('DEBUG')  or False, 
-            port = os.getenv('SERVER_PORT') or  6000)  
+            port = int(os.getenv('SERVER_PORT')) or  6000)  
