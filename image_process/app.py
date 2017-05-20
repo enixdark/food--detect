@@ -21,4 +21,4 @@ api.add_resource(PathUrl, '/path', endpoint = 'path')
 if __name__ == "__main__":
     app.run(host=os.getenv('SERVER_HOST') or '0.0.0.0', 
             debug=os.getenv('DEBUG')  or False,
-            port = int(os.getenv('SERVER_PORT')) or 5000) 
+            port = 5000) 
