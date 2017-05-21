@@ -14,11 +14,13 @@ socket.on('answer', function(message){
 
 // get answer about nutrition of food
 socket.on('nutrition', function(message){
+  $('.animation-load').fadeOut(400);
+  
   var canvas = JSON.parse(JSON.parse(message).context).canvas;
   $('#food_canvas').html(canvas);
 
-  var food_content = JSON.parse(JSON.parse(message).context).data;
-  $('.js--food-content').html(food_content.content);
-  $('.js--food-image').attr("src",food_content.img);
-  $('.animation-load').fadeOut(400);
+  // var food_content = JSON.parse(JSON.parse(message).context).data;
+  // $('.js--food-content').html(food_content.content);
+  // $('.js--food-image').attr("src",food_content.img);
+
 });
