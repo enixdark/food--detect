@@ -1,0 +1,4 @@
+unirest==1.1.7
+Flask-RESTful==0.3.5
+Flask==0.12.2
+requests==2.11.1
