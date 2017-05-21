@@ -73,7 +73,6 @@ class VisualText(Resource):
 
 class SearchApi(Resource):
     def get(self):
-        import ipdb; ipdb.set_trace()
         query = request.args.get('query')
         if query:
             text = request_recipe(query)
