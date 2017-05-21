@@ -4,7 +4,7 @@
       <%= image_tag "buncha.jpg", class: "food-image img-responsive" %>
     </div>
     <div class="col-sm-8 food-content">
-      <h2 class="food-name">Bún chả Hà Nội</h2>
+      <h2 class="food-name"><%= @food_name %></h2>
       <div class="food-link">
         <%= link_to "https://icons8.com/icon/set/upload/ios7", "#", class: "foot-normal-link" %>
         <%= link_to "#", target: "_blank", class: "food-external-link" do %>
@@ -84,7 +84,7 @@
       <div class="video-playlist">
         <div class="js--video-list">
           <% @video_data.each do |video| %>
-            <div class="video-item no-outline" title="<%= (video["snippet"])["title"] %>">
+            <div class="video-item no-outline" title="<%= (video["snippet"])["title"] unless nil? %>">
               <%= image_tag "https://i.ytimg.com/vi/" + (video['id'])['videoId'] + "/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
             </div>
           <% end %>

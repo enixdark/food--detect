@@ -1,11 +1,13 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
-from recipe_crawler.google_api.web_search import web_search
-from recipe_crawler.google_api.translator import translate
+from google_api.web_search import web_search
+from google_api.translator import translate
 
 def get_recipe(url, index):
     page = urlopen(url)
@@ -46,7 +48,7 @@ class PathUrl(Resource):
         result = translate(query)
         return jsonify(result)
 
-api.add_resource(PathUrl, '/recipe', endpoint='recipe')
+api.add_resource(PathUrl, '/search', endpoint='search')
 
 if __name__ == "__main__":
     app.run(host=os.getenv('SERVER_HOST') or '0.0.0.0',

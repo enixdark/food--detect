@@ -8,6 +8,7 @@ let request = require('request')
 
 let clients = {}
 let URI = process.env.GOOGLE_SERIVCE_URI || 'http://0.0.0.0:6000/search'
+let RECIPE_DETECT_URI = process.env.DETECT_SERVICE_URI || 'http://0.0.0.0:10000/search'
 
 io.on('connection', (client) => {
   client.send(client.id)
@@ -33,7 +34,12 @@ amqp.connect(config.default.RABBITMQ_URI, (err, conn) => {
           // clients[id].emit('answer', msg.content.toString())
           request(`${URI}?query=${data}`,(error, response, body)  => {
             if(err) return 
-            clients[id].emit('answer', JSON.stringify({'id' : id, context: body }))           
+            clients[id].emit('answer', JSON.stringify({name: data, context: body}))           
+          })
+
+          request(`${RECIPE_DETECT_URI}?query=${data}`,(error, response, body)  => {
+            if(err) return 
+            clients[id].emit('nutitrion', JSON.stringify({context: body}))           
           })
         }, {noAck: true})
       })
