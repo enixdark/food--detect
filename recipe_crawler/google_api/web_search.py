@@ -6,11 +6,11 @@ import os, time
 
 def web_search(query,index):
     service = build("customsearch", "v1",
-                    developerKey=os.environ['DEVELOPER_KEY'])
+                    developerKey=os.getenv['DEVELOPER_KEY'])
     try:
         res = service.cse().list(
             q=query,
-            cx=os.environ['SEARCH_ID'],
+            cx = os.getenv('SEARCH_ID'),
             num=10
         ).execute()
         return res['items'][index]['link']
