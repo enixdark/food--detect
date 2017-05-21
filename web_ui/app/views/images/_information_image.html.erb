@@ -84,7 +84,7 @@
       <div class="video-playlist">
         <div class="js--video-list">
           <% @video_data.each do |video| %>
-            <div class="video-item no-outline" title="<%= (video["snippet"])["title"] %>">
+            <div class="video-item no-outline" title="<%= (video["snippet"])["title"] unless nil? %>">
               <%= image_tag "https://i.ytimg.com/vi/" + (video['id'])['videoId'] + "/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
             </div>
           <% end %>
