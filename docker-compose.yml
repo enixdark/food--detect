@@ -1,69 +1,69 @@
 version: '2'
 services:
   #use kong api gateway to register and manage all api serivces  with lb
-  kong:
-    container_name: kong
-    image: kong
-    ports:
-      - "8000:8000"
-      - "8443:8443"
-      - "8001:8001"
-      - "7946:7946"
-      - "7946:7946/udp"
-    environment:
-      - KONG_DATABASE=postgres
-      - KONG_PG_HOST=kong-database
-    links:
-      - kong-database:kong-database
-  kong-database:
-    container_name: kong-database
-    image: postgres:9.4
-    environment:
-      - POSTGRES_USER=kong
-      - POSTGRES_DB=kong
-    ports:
-      - "5432:5432"
-  kong-dashboard:
-    container_name: kong-dashbroad
-    image: pgbi/kong-dashboard:v2
-    ports:
-      - "8080:8080"
-    command: npm start -- -a user=kong
-  consul:
-    image: progrium/consul:latest
-    command: -server -bootstrap -ui-dir /ui
-    restart: always
-    mem_limit: 128m
-    ports:
-      - 8500:8500
-    expose:
-      - 53
-      - 8300
-      - 8301
-      - 8302
-      - 8400
-      - 8500
-    dns:
-      - 127.0.0.1
+  # kong:
+  #   container_name: kong
+  #   image: kong
+  #   ports:
+  #     - "8000:8000"
+  #     - "8443:8443"
+  #     - "8001:8001"
+  #     - "7946:7946"
+  #     - "7946:7946/udp"
+  #   environment:
+  #     - KONG_DATABASE=postgres
+  #     - KONG_PG_HOST=kong-database
+  #   links:
+  #     - kong-database:kong-database
+  # kong-database:
+  #   container_name: kong-database
+  #   image: postgres:9.4
+  #   environment:
+  #     - POSTGRES_USER=kong
+  #     - POSTGRES_DB=kong
+  #   ports:
+  #     - "5432:5432"
+  # kong-dashboard:
+  #   container_name: kong-dashbroad
+  #   image: pgbi/kong-dashboard:v2
+  #   ports:
+  #     - "8080:8080"
+  #   command: npm start -- -a user=kong
+  # consul:
+  #   image: progrium/consul:latest
+  #   command: -server -bootstrap -ui-dir /ui
+  #   restart: always
+  #   mem_limit: 128m
+  #   ports:
+  #     - 8500:8500
+  #   expose:
+  #     - 53
+  #     - 8300
+  #     - 8301
+  #     - 8302
+  #     - 8400
+  #     - 8500
+  #   dns:
+  #     - 127.0.0.1
 
-  nginx-lb:
-    build: nginx/
-    mem_limit: 128m
-    ports:
-      - 8000:8000
-      - 8443:8443
-      - 8001:8001
-    expose:
-      - 8000
-      - 8443
-      - 8001
-    links:
-      - consul:consul
-    restart: always
-    command: >
-        /bin/containerpilot
-        -config file:///etc/containerpilot/containerpilot.json
-        nginx -g "daemon off;" 
+  # nginx-lb:
+  #   build: nginx/
+  #   mem_limit: 128m
+  #   ports:
+  #     - 8000:8000
+  #     - 8443:8443
+  #     - 8001:8001
+  #   expose:
+  #     - 8000
+  #     - 8443
+  #     - 8001
+  #   links:
+  #     - consul:consul
+  #   restart: always
+  #   command: >
+  #       /bin/containerpilot
+  #       -config file:///etc/containerpilot/containerpilot.json
+  #       nginx -g "daemon off;" 
 
   web_ui:
     container_name: web_ui
@@ -128,14 +128,14 @@ services:
     environment:
       - RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
       - SOCKET_PORT=1333
-      - GOOGLE_SERIVCE_URI=google_service:6000/search
-      - RECIPE_DETECT_URI=detect_service:10000/search
+      # - GOOGLE_SERIVCE_URI=google_service:6000/search
+      # - RECIPE_DETECT_URI=detect_service:10000/search
     ports:
       - "1333:1333"
     links:
       - rabbitmq
-      - google_service
-      - detect_service
+      # - google_service
+      # - detect_service
     depends_on:
       - rabbitmq
     # deploy:
@@ -161,28 +161,28 @@ services:
     #     delay: 10s
     #   restart_policy:
     #     condition: on-failure
-  google_service:
-    container_name: google_service
-    build: ./google_result
-    ports:
-      - "6000:6000"
-    environment:
-      - DEBUG=False
-  detect_service:
-    container_name: detect_service
-    build: ./detect_service
-    ports:
-      - "10000:10000"
-    environment:
-      - API_KEY=QwGbA9i9eZmshcmQpoc3Dlqys4Oyp1cjb02jsnqiEQS1V3F1l9
-  mongo:
-    container_name: mongo
-    image: mongo
-    volumes:
-      - /data:/data
-    ports:
-      - "27017:27017"
-      - "28017:28017"
+  # google_service:
+  #   container_name: google_service
+  #   build: ./google_result
+  #   ports:
+  #     - "6000:6000"
+  #   environment:
+  #     - DEBUG=False
+  # detect_service:
+  #   container_name: detect_service
+  #   build: ./detect_service
+  #   ports:
+  #     - "10000:10000"
+  #   environment:
+  #     - API_KEY=QwGbA9i9eZmshcmQpoc3Dlqys4Oyp1cjb02jsnqiEQS1V3F1l9
+  # mongo:
+  #   container_name: mongo
+  #   image: mongo
+  #   volumes:
+  #     - /data:/data
+  #   ports:
+  #     - "27017:27017"
+  #     - "28017:28017"
     # deploy:
     #   replicas: 1
     #   update_config:

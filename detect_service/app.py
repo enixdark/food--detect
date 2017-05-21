@@ -1,10 +1,10 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from flask_restful import Resource, Api
 import os
 import unirest
 import requests
-
+import json
 app = Flask(__name__)
 api = Api(app)
 
@@ -77,10 +77,12 @@ class SearchApi(Resource):
         if query:
             text = request_recipe(query)
             if text:
-                response = detect_text(text)
-                return response
+                response = detect_text(json.loads(text)['data']['translations'][0]['translatedText'])
+                nutrition = visual( map(lambda x: x['annotation'],response['annotations']))
+                return dict(dict(response,**json.loads(text)), **json.loads(nutrition.data))
+        print('not response')
         return ""
-
+# map(lambda x: x['annotation'],response['annotations'])
 api.add_resource(DetectUrl, '/detect', endpoint = 'detect')
 api.add_resource(VisualText, '/visual', endpoint = 'visual')
 api.add_resource(SearchApi, '/search', endpoint = 'search')
