@@ -1,26 +1,24 @@
 <div class="food-information">
   <div class="row">
     <div class="col-sm-3">
-      <%= image_tag "buncha.jpg", class: "food-image img-responsive" %>
+      <%= image_tag "buncha.jpg", class: "food-image img-responsive js--food-image" %>
     </div>
     <div class="col-sm-8 food-content">
       <h2 class="food-name"><%= @food_name %></h2>
-      <div class="food-link">
-        <%= link_to "https://icons8.com/icon/set/upload/ios7", "#", class: "foot-normal-link" %>
-        <%= link_to "#", target: "_blank", class: "food-external-link" do %>
-          <div class="icon-new-tab">
-            <%= image_tag "external-link.svg", class: "external-link-icon" %>
-          </div>
-        <% end %>
-      </div>
+      <!-- <div class="food-link"> -->
+        <%#= link_to "https://icons8.com/icon/set/upload/ios7", "#", class: "foot-normal-link" %>
+        <%#= link_to "#", target: "_blank", class: "food-external-link" do %>
+          <!-- <div class="icon-new-tab">
+            <%#= image_tag "external-link.svg", class: "external-link-icon" %>
+          </div> -->
+        <%# end %>
+      <!-- </div> -->
     </div>
   </div>
 </div>
 
 <div class="food-content">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque at euismod nibh. Sed mollis scelerisque neque, nec vestibulum odio pellentesque ac. Nullam pellentesque consequat quam at convallis. Proin sed ex id massa blandit tincidunt. Sed et dignissim magna. Nam hendrerit elit mi, et tempor massa consequat a. Fusce efficitur ultricies sem vel venenatis</p>
-  <p>Aliquam non aliquam mi. Fusce sodales, magna et commodo eleifend, orci lectus volutpat nibh, vitae pretium ante mauris et risus. Nunc blandit mi velit, nec sagittis massa rutrum ac. Sed non sagittis nisl. Duis commodo risus tristique sapien suscipit eleifend. Duis at vestibulum mauris. Suspendisse porta, lectus sagittis gravida aliquet, risus mauris varius nibh, mattis mattis orci erat eget velit. Aenean in justo ac ligula bibendum fringilla non et massa. Vivamus ac sollicitudin leo.</p>
-  <p>Nam ultricies diam at enim commodo gravida. Nullam porta vitae nulla sed faucibus. Suspendisse malesuada a diam in ultricies. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer egestas nec nibh quis vehicula. Sed sit amet placerat diam, vitae tincidunt nisi. Ut neque metus, accumsan in nibh eget, ullamcorper scelerisque purus. Sed porta scelerisque nibh, ac placerat nulla volutpat a. Vivamus enim augue, gravida nec lacus eu, aliquam mattis dui. Cras eget ligula tempor, ultrices nibh sit amet, auctor mauris. Donec luctus nisi id hendrerit tristique. Cras vestibulum sapien nec mauris blandit consectetur. Quisque ullamcorper nec dolor quis vulputate. Morbi sodales quam nec ligula tincidunt mollis</p>
+  <p class="js--food-content"></p>
 </div>
 
 <div class="food-expland" id="food_canvas">
@@ -60,9 +58,9 @@
   <button type="button" class="js--scroll-top no-outline redirect-button button-theme-gray">
     Upload other image
   </button>
-  <a href="https://icons8.com/icon/" class="redirect-button button-theme-orange">
+  <!-- <a href="https://icons8.com/icon/" class="redirect-button button-theme-orange">
     View details
-  </a>
+  </a> -->
 </div>
 
 <div class="modal-container" id="video_modal">
@@ -148,8 +146,6 @@
     $('body').removeClass('modal-active');
 
     if ($(this).data('modal') == '#video_modal') {
-      console.log('close video modal');
-
       var player, command, currentSlide;
       currentSlide = $(".js--videop-layer").find(".slick-current");
       player = currentSlide.find("iframe").get(0);
