@@ -438,6 +438,26 @@ html,body {
   }
 }
 
+.animation-load {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.67);
+  color: #ffffff;
+
+  .text-center {
+    padding-top: 45vh;
+  }
+
+  .fa {
+    font-size: 45px;
+  }
+}
+
 @keyframes unfoldIn {
   0% {
     transform:scaleY(.003) scaleX(0);

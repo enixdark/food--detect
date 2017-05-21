@@ -29,11 +29,16 @@
       });
 
       document.getElementById("image_file").onchange = function() {
-        // document.getElementById("main_body").style.cursor = "progress";
-        // show loading progress
+        $('.animation-load').show();
         $('#button-submit').click()
       };
     });
   };
 </script>
+
+<div class="animation-load">
+  <div class="text-center">
+    <i class="fa fa-spinner fa-spin" aria-hidden="true"></i>
+  </div>
+</div>
 
