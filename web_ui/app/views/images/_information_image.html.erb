@@ -103,7 +103,7 @@
       <div class="container">
         <div class="row">
           <div class="map-responsive">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.6944324089577!2d105.83895251497397!3d21.004882493968836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac777b415bf9%3A0x776d3a2ecf9b753d!2zNjQgR2nhuqNpIFBow7NuZyAtIMSQ4buRaSBkaeG7h24gdHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBLaG9h!5e0!3m2!1svi!2sjp!4v1495324778036" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div id="map_frame"></div>
           </div>
         </div>
       </div>
@@ -177,4 +177,32 @@
       player.contentWindow.postMessage(JSON.stringify(command), "*");
     }
   });
+</script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxW4mgsZ9R4JYD4rMw6qu9F5bFwMqAsLQ&callback=showPosition"
+  type="text/javascript"></script>
+
+<script type="text/javascript">
+  function showPosition() {
+    lat = '<%= @lat %>';
+    lon = '<%= @lon %>';
+    latlon = new google.maps.LatLng(lat, lon)
+    mapholder = document.getElementById('map_frame')
+
+    var mapOptions = {
+      center:latlon,zoom:14,
+      mapTypeId:google.maps.MapTypeId.ROADMAP,
+      mapTypeControl:false,
+    }
+    
+    var map = new google.maps.Map(document.getElementById("map_frame"), mapOptions);
+
+    <% @map_data.each do |marker_ob| %>
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng('<%= marker_ob["geometry"]["location"]["lat"] %>', '<%= marker_ob["geometry"]["location"]["lng"] %>'),
+        title: '<%= marker_ob["formatted_address"] %>',
+        map: map
+      });
+    <% end %>
+  }
 </script>
