@@ -15,5 +15,6 @@ socket.on('answer', function(message){
 
 // get answer about nutrition of food
 socket.on('nutrition', function(message){
+  $('#food_canvas').html()
   console.log(message)
 });
