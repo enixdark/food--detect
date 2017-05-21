@@ -28,7 +28,7 @@
     <div class="col-sm-6">
       <div class="image-border">
         <div class="image-modal js--show-modal" data-target="#video_modal">
-          <div class="background-child" style="background-image: url('https://i.ytimg.com/vi/VZ9MBYfu_0A/hqdefault.jpg');">
+          <div class="background-child" style="background-image: url('https://i.ytimg.com/vi/<%= (@video_data.first['id'])['videoId'] %>/hqdefault.jpg');">
             <div class="overlay">
               <%= image_tag "play.svg", class: "overlay-icon media-play-icon" %>
             </div>
@@ -39,7 +39,7 @@
     </div>
     <div class="col-sm-6">
       <div class="image-border">
-        <div class="image-modal js--show-modal" data-target="#">
+        <div class="image-modal js--show-modal" data-target="#map_modal">
           <div class="background-child" style="background-image: url(<%= asset_path 'map.jpg' %>);">
             <div class="overlay">
               <%= image_tag "search.svg", class: "overlay-icon media-search-icon" %>
@@ -63,7 +63,7 @@
 
 <div class="modal-container" id="video_modal">
   <div class="modal-background">
-    <div class="modal-close text-right js--modal-close">
+    <div class="modal-close text-right js--modal-close" data-modal="#video_modal">
       <%= image_tag "close.svg", class: "modal-close-icon" %>
     </div>
     <div class="modal">
@@ -88,6 +88,23 @@
               <%= image_tag "https://i.ytimg.com/vi/" + (video['id'])['videoId'] + "/hqdefault.jpg", class: "video-item-thumbnail img-responsive" %>
             </div>
           <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-container" id="map_modal">
+  <div class="modal-background">
+    <div class="modal-close text-right js--modal-close" data-modal="#map_modal">
+      <%= image_tag "close.svg", class: "modal-close-icon" %>
+    </div>
+    <div class="modal">
+      <div class="container">
+        <div class="row">
+          <div class="map-responsive">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.6944324089577!2d105.83895251497397!3d21.004882493968836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac777b415bf9%3A0x776d3a2ecf9b753d!2zNjQgR2nhuqNpIFBow7NuZyAtIMSQ4buRaSBkaeG7h24gdHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBCw6FjaCBLaG9h!5e0!3m2!1svi!2sjp!4v1495324778036" width="800" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -126,16 +143,20 @@
     $('.modal-container').addClass('out');
     $('body').removeClass('modal-active');
 
-    var player, command, currentSlide;
-    currentSlide = $(".js--videop-layer").find(".slick-current");
-    player = currentSlide.find("iframe").get(0);
-    command = {
-      "event": "command",
-      "func": "pauseVideo"
-    };
+    if ($(this).data('modal') == '#video_modal') {
+      console.log('close video modal');
 
-    if (player != undefined) {
-      player.contentWindow.postMessage(JSON.stringify(command), "*");
+      var player, command, currentSlide;
+      currentSlide = $(".js--videop-layer").find(".slick-current");
+      player = currentSlide.find("iframe").get(0);
+      command = {
+        "event": "command",
+        "func": "pauseVideo"
+      };
+
+      if (player != undefined) {
+        player.contentWindow.postMessage(JSON.stringify(command), "*");
+      }
     }
   });
 

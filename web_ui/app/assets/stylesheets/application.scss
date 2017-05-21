@@ -367,6 +367,23 @@ html,body {
   }
 }
 
+#map_modal {
+  .map-responsive {
+    overflow:hidden;
+    padding-bottom:56.25%;
+    position:relative;
+    height:0;
+
+    iframe {
+      left:0;
+      top:0;
+      height:100%;
+      width:100%;
+      position:absolute;
+    }
+  }
+}
+
 @keyframes unfoldIn {
   0% {
     transform:scaleY(.003) scaleX(0);
