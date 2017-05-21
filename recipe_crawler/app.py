@@ -6,8 +6,8 @@ import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
-from google_api.web_search import web_search
-from google_api.translator import translate
+from recipe_crawler.google_api.web_search import web_search
+from recipe_crawler.google_api.translator import translate
 
 def get_recipe(url, index):
     page = urlopen(url)
@@ -15,18 +15,43 @@ def get_recipe(url, index):
     # print(soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).get_text()
     if index == 1:
         # buncha
-        return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).get_text()
+        result = {}
+        result["trans"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).get_text()
+        result[
+            "img"] = "http://vaobepnauan.com/wp-content/uploads/2014/09/cach-lam-bun-cha-gia-truyen-ha-noi-bai-ban-dung-chuan-12.jpg"
+        result["content"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).get_text()
+        return result
     elif index == 2:
         # pho
-        return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
+        result = {}
+        result["trans"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
+        result["img"] = "http://vaobepnauan.com/wp-content/uploads/2014/08/cach-nau-pho-bo-gia-truyen-2.jpg"
+        result["content"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[
+            0].get_text()
+        return result
+        # return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
     elif index == 3:
         # banhmi
-        return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent.parent).find_next_siblings("ul")[0].get_text()
+        result = {}
+        result["trans"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent.parent).find_next_siblings("ul")[
+            0].get_text()
+        result["img"] = "http://www.savourydays.com/wp-content/uploads/2014/10/BanhMiVNPhan2.jpg"
+        result["content"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent.parent).find_next_siblings("ul")[
+            0].get_text()
+        return result
+        # return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent.parent).find_next_siblings("ul")[0].get_text()
     else:
         # comrang
-        return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
+        result = {}
+        result["trans"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
+        result["img"] = "http://anh.eva.vn/upload/1-2014/images/2014-02-10/1391999972-comrang-thap-cam13.jpg"
+        result["content"] = (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[
+            0].get_text()
+        return result
+        # return (soup(text=re.compile(r"Nguyên liệu"))[0].parent.parent).find_next_siblings("p")[0].get_text()
 
 app = Flask(__name__)
+app.debug = True
 api = Api(app)
 
 class PathUrl(Resource):
@@ -45,7 +70,12 @@ class PathUrl(Resource):
         if query == 'comrang':
             # url = web_search("cach lam com rang", 5)
             query = get_recipe("http://eva.vn/bep-eva/com-rang-thap-cam-ngon-nhu-ngoai-hang-c162a168429.html", 4)
-        result = translate(query)
+        query["trans"] = translate(query["trans"])
+        result ={}
+        result["data"]={}
+        result["data"]["translations"] = query["trans"]["data"]["translations"]
+        result["data"]["img"] = query["img"]
+        result["data"]["content"] = query["content"]
         return jsonify(result)
 
 api.add_resource(PathUrl, '/search', endpoint='search')
