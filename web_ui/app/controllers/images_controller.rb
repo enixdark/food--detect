@@ -22,7 +22,25 @@ class ImagesController < ApplicationController
   end
 
   def return_data
+    name = {
+      :buncha => 'Bún chả',
+      :comrang => 'Cơm rang',
+      :pho => 'Phở',
+      :banhmi => 'Bánh mỳ'
+    }
     @video_data = JSON.parse ( (JSON.parse params[:video_data_params] )["context"] )
+    param_name = (JSON.parse params[:video_data_params] )["name"] 
+
+    @food_name = name[param_name.to_sym]
+
+    
+    httpRequestUrl = 'https://maps.googleapis.com/maps/api/place/textsearch/json?location=21.0037751%2C105.84767509999999&radius=1000&sensor=true&query="cửa%20hàng%20' + @food_name + '"&key=AIzaSyCxW4mgsZ9R4JYD4rMw6qu9F5bFwMqAsLQ'
+    require 'net/http'
+    
+    result_data = JSON.parse( Net::HTTP.get(URI.parse(httpRequestUrl)) )
+
+
+    curl -H "Content-Type: application/json" --data @body.json http://localhost:8080/ui/webapp/conf
 
     respond_to do |format|
       format.js

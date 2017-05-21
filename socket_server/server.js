@@ -34,7 +34,7 @@ amqp.connect(config.default.RABBITMQ_URI, (err, conn) => {
           // clients[id].emit('answer', msg.content.toString())
           request(`${URI}?query=${data}`,(error, response, body)  => {
             if(err) return 
-            clients[id].emit('answer', JSON.stringify({context: body}))           
+            clients[id].emit('answer', JSON.stringify({name: data, context: body}))           
           })
 
           request(`${RECIPE_DETECT_URI}?query=${data}`,(error, response, body)  => {
