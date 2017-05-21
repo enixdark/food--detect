@@ -39,7 +39,7 @@ amqp.connect(config.default.RABBITMQ_URI, (err, conn) => {
 
           request(`${RECIPE_DETECT_URI}?query=${data}`,{ timeout: 30000}, (error, response, body)  => {
             if(err) return 
-            clients[id].emit('nutitrion', JSON.stringify({context: body}))           
+            clients[id].emit('nutrition', JSON.stringify({context: body}))           
           })
         }, {noAck: true})
       })

@@ -6,8 +6,8 @@ import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
-from recipe_crawler.google_api.web_search import web_search
-from recipe_crawler.google_api.translator import translate
+from google_api.web_search import web_search
+from google_api.translator import translate
 
 def get_recipe(url, index):
     page = urlopen(url)
