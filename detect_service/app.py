@@ -13,7 +13,7 @@ CONTEXT_TYPE = "application/x-www-form-urlencoded"
 ACCEPT_TYPE = "application/json"
 ACCEPT_TYPE_TEXT = "text/html"
 DETECH_URI = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/food/detect"
-VISUAL_URI = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/visualizeIngredients"
+VISUAL_URI = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/visualizeNutrition"
 
 HEADERS = {
   "X-Mashape-Key": API_KEY,
@@ -78,7 +78,7 @@ class SearchApi(Resource):
             text = request_recipe(query)
             if text:
                 response = detect_text(json.loads(text)['data']['translations'][0]['translatedText'])
-                nutrition = visual( map(lambda x: x['annotation'],response['annotations']))
+                nutrition = visual( ', '.join(map(lambda x: x['annotation'],response['annotations'])))
                 return dict(dict(response,**json.loads(text)), **json.loads(nutrition.data))
         print('not response')
         return ""
